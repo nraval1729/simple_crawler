@@ -17,4 +17,5 @@
  - Error checking for malformed urls.
  - Print the urls to the console as and when the crawler finishes crawling them.
  - Accept command line arguments for seed url and max number of urls to crawl.
+ - Only crawls absolute urls. For example, if you are on https://www.heroku.com, and there is a link with href /pricing, it will not go to https://www.heroku.com/pricing. It will be ignored. I've made this assumption to make parsing url paths easier. Thus only absolute urls (starting with http or https) are supported
 
