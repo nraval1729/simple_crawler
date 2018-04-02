@@ -60,7 +60,7 @@ class Crawler:
 				finally:
 					self.LOCK.release()
 
-				print "Curr url: ", curr_url, " ", my_seen_count
+				print "Crawled: ", curr_url
 
 				for outgoing_url in self.get_all_outgoing_urls_from(curr_url):
 					if my_seen_count <= self.MAX_URLS_PER_WORKER:
@@ -99,15 +99,12 @@ class Crawler:
 	def validate_seed_url(self):
 		print "Validating seed url..."
 		try:
-			r = self.session.get(self.SEED_URL, timeout=5)
+			r = self.session.get(self.SEED_URL, timeout=10)
 			print "Seed url is valid."
 		except ConnectionError:
 			print "Seed url: ", self.SEED_URL, " is non-existent. Please enter a valid url."
 			print "Exiting..."
 			sys.exit(1)
-
-if __name__ == "__main__":
-	c = Crawler("https://susunisutisi.com/", 300)
-	c.crawl()
-	print "Finished crawling"
-
+		except Exception as e:
+			print str(e)
+			sys.exit(1)
